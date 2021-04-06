@@ -10,22 +10,47 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            //CarTest();
+            //ColorTest();
+            //BrandTest();
+            
+            
+        }
 
-            Car car1 = new Car { BrandId = 3, ColorId = 2, ModelYear = 2011, DailyPrice = 650.00, Description = "B" };
-            Car car2 = new Car { BrandId = 3, ColorId = 4, ModelYear = 2011, DailyPrice = 700.50, Description = "BMW 3 Series Touring Red" };
-
-            carManager.Add(car1);
-            carManager.Add(car2);
-
-            foreach (var car in carManager.GetCarsByBrandId(3))
+        private static void BrandTest()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //brandManager.Insert(new Brand { BrandName="adfg"});
+            Brand brand1 = brandManager.GetById(9);
+            brand1.BrandName = "Hyundai";
+            brandManager.Update(brand1);
+            foreach (var brand in brandManager.GetAll())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(brand.BrandName);
             }
+        }
 
-            foreach (var car in carManager.GetCarsByBrandId(3))
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            //colorManager.Insert(new Color { ColorName="Metalic Green"});
+            Color color1 = colorManager.GetById(9);
+            color1.ColorName = "Green";
+            colorManager.Update(color1);
+
+            foreach (var color in colorManager.GetAll())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(color.ColorName);
+            }
+        }
+
+        private static void CarTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            carManager.Insert(new Car { CarName = "Hyundai i20", BrandId = 9, ColorId = 3, ModelYear = 2013, DailyPrice = 200.55m,Description="Available on weekends"});
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine("{0} / {1} / {2} / {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
             }
         }
     }
