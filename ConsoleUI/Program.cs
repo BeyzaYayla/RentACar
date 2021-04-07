@@ -13,8 +13,47 @@ namespace ConsoleUI
             //CarTest();
             //ColorTest();
             //BrandTest();
-            
-            
+            //UserTest();
+            //CustomerTest();
+            //RentalTest();
+
+        }
+
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(new Rental { CarId = 1, CustomerId = 1, RentDate = new DateTime(2021, 10, 7) });
+            Console.WriteLine(result.Message);
+            foreach (var rental in rentalManager.GetAll().Data)
+            {
+                Console.WriteLine("{0} / {1}", rental.CustomerId, rental.RentDate);
+            }
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Customer { UserId = 1, CompanyName = "Google" });
+            customerManager.Add(new Customer { UserId = 3, CompanyName = "İnvivo" });
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.CompanyName);
+            }
+        }
+
+        private static void UserTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User { FirstName = "Beyza", LastName = "Yayla", Email = "beyza.yayla@gmail.com", Password = "12345" });
+            userManager.Add(new User { FirstName = "Sevde", LastName = "Yanık", Email = "sevde.yanik@gmail.com", Password = "asdfg" });
+            userManager.Add(new User { FirstName = "Ece", LastName = "Çekirdekçi", Email = "ecekirdekci@gmail.com", Password = "65432" });
+            userManager.Add(new User { FirstName = "Merve", LastName = "Ak", Email = "mrvak@gmail.com", Password = "ghjkl" });
+            userManager.Add(new User { FirstName = "Fethi", LastName = "Hamarattürk", Email = "fethi@gmail.com", Password = "cvbnm" });
+
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine(user.Id + "  " + user.FirstName);
+            }
         }
 
         private static void BrandTest()
@@ -38,7 +77,7 @@ namespace ConsoleUI
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            //carManager.Insert(new Car { CarName = "Hyundai i20", BrandId = 9, ColorId = 3, ModelYear = 2013, DailyPrice = 200.55m,Description="Available on weekends"});
+            //carManager.Add(new Car { CarName = "Hyundai i20", BrandId = 9, ColorId = 3, ModelYear = 2013, DailyPrice = 200.55m,Description="Available on weekends"});
             foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine("{0} / {1} / {2} / {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);

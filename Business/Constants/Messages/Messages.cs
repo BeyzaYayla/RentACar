@@ -20,7 +20,19 @@ namespace Business.Constants.Messages
         public static string ColorDeleted = "Color deleted successfully";
         public static string ColorUpdated = "Color updated successfully";
         public static string ColorsListed = "Colors listed successfully";
+        public static string UserAdded = "User added successfully";
+        public static string UserDeleted = "User deleted successfully";
+        public static string UserUpdated = "User updated successfully";
+        public static string UsersListed = "Users listed successfully";
+        public static string CustomerAdded = "Customer added successfully";
+        public static string CustomerDeleted = "Customer deleted successfully";
+        public static string CustomerUpdated = "Customer updated successfully";
+        public static string CustomersListed = "Customers listed successfully";
+        public static string RentalAdded = "Rental added successfully";
+        public static string RentalDeleted = "Rental deleted successfully";
+        public static string RentalUpdated = "Rental updated successfully";
+        public static string RentalsListed = "Rentals listed successfully";
         public static string OperationFailed = "Operation failed";
-
+        public static string CarNotAvailable = "Car is not available";
     }
 }
