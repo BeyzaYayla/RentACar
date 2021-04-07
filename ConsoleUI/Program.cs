@@ -20,11 +20,7 @@ namespace ConsoleUI
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            //brandManager.Insert(new Brand { BrandName="adfg"});
-            Brand brand1 = brandManager.GetById(9);
-            brand1.BrandName = "Hyundai";
-            brandManager.Update(brand1);
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandName);
             }
@@ -33,12 +29,7 @@ namespace ConsoleUI
         private static void ColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            //colorManager.Insert(new Color { ColorName="Metalic Green"});
-            Color color1 = colorManager.GetById(9);
-            color1.ColorName = "Green";
-            colorManager.Update(color1);
-
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorName);
             }
@@ -47,8 +38,8 @@ namespace ConsoleUI
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            carManager.Insert(new Car { CarName = "Hyundai i20", BrandId = 9, ColorId = 3, ModelYear = 2013, DailyPrice = 200.55m,Description="Available on weekends"});
-            foreach (var car in carManager.GetCarDetails())
+            //carManager.Insert(new Car { CarName = "Hyundai i20", BrandId = 9, ColorId = 3, ModelYear = 2013, DailyPrice = 200.55m,Description="Available on weekends"});
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine("{0} / {1} / {2} / {3}", car.CarName, car.BrandName, car.ColorName, car.DailyPrice);
             }
