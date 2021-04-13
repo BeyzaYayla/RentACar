@@ -34,5 +34,10 @@ namespace Business.Constants.Messages
         public static string RentalsListed = "Rentals listed successfully";
         public static string OperationFailed = "Operation failed";
         public static string CarNotAvailable = "Car is not available";
+        public static string CarImageAdded = "Image added successfully";
+        public static string CarImageDeleted = "Image deleted successfully";
+        public static string CarImageUpdated = "Image updated successfully";
+        public static string CarImagesListed = "Car Images listed successfully";
+
     }
 }
