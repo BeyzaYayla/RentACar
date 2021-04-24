@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -24,7 +25,7 @@ namespace Business.Concrete
 
         public IResult Add(IFormFile file, CarImage carImage)
         {
-            IResult result = BusinessRules.Run(CheckIfImageLimitExceded(carImage.CarId));
+            IResult result = BusinessRules.Run(CheckIfImageLimitExceded(carImage));
 
             if (result != null)
             {
@@ -66,7 +67,19 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetImagesOfACar(int carId)
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(cımg => cımg.CarId == carId), Messages.CarImagesListed);
+            var carImages = _carImageDal.GetAll(cımg => cımg.CarId == carId);
+
+            if (carImages.Count == 0)
+            {
+                var result = GetDefaultImage();
+                if (result.Success)
+                {
+                    return new SuccessDataResult<List<CarImage>>(result.Data, Messages.DefaultImageDisplayed);
+                }
+                return new ErrorDataResult<List<CarImage>>(Messages.DefaultImageNotFound);
+            }
+
+            return new SuccessDataResult<List<CarImage>>(carImages, Messages.CarImagesListed);
         }
 
         public IResult Update(IFormFile file, CarImage carImage)
@@ -78,14 +91,27 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageUpdated);
         }
 
-        private IResult CheckIfImageLimitExceded(int carId)
+        private IResult CheckIfImageLimitExceded(CarImage carImage)
         {
-            var result = _carImageDal.GetAll(cımg => cımg.CarId == carId).Count;
+            var result = _carImageDal.GetAll(cımg => cımg.CarId == carImage.CarId).Count;
             if (result >= 5)
             {
                 return new ErrorResult();
             }
             return new SuccessResult();
+        }
+
+        private IDataResult<List<CarImage>> GetDefaultImage()
+        {
+            string defaultPath = "\\Images\\logo";
+            List<CarImage> defaultImage = _carImageDal.GetAll(cımg => cımg.ImagePath.Equals(defaultPath));
+
+            if (defaultImage.Count == 0)
+            {
+                return new ErrorDataResult<List<CarImage>>();
+            }
+
+            return new SuccessDataResult<List<CarImage>>(defaultImage);
         }
     }
 }

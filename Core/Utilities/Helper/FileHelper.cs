@@ -67,7 +67,13 @@ namespace Core.Utilities.Helper
             return new SuccessResult();
         }
 
-        public static (string newPath, string Path2) GenerateUniquePath(IFormFile file)
+        public static byte[] GetDefaultFile()
+        {
+            string path = Environment.CurrentDirectory + @"\wwwroot\Images";
+            string fileName = "logo.jpg";
+            return File.ReadAllBytes(path + fileName);
+        }
+        private static (string newPath, string Path2) GenerateUniquePath(IFormFile file)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);
             string fileExtension = fileInfo.Extension;
