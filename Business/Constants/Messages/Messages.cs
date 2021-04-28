@@ -37,7 +37,7 @@ namespace Business.Constants.Messages
         public static string CustomerUpdated = "Customer updated successfully";
         public static string CustomersListed = "Customers listed successfully";
 
-        public static string RentalAdded = "Rental added successfully";
+        public static string CarRented = "Rental added successfully";
         public static string RentalDeleted = "Rental deleted successfully";
         public static string RentalUpdated = "Rental updated successfully";
         public static string RentalsListed = "Rentals listed successfully";
@@ -58,7 +58,8 @@ namespace Business.Constants.Messages
         public static string AccessTokenCreated = "Access token created successfully";
 
         public static string AuthorizationDenied = "You are not authorized";
+        public static string CarIsAvailable = "Car is available for rent";
 
-        public static string CarNameAlreadyExists = "Car name already exists";
+        public static string BrandAlreadyExists = "Brand already exists";
     }
 }

@@ -31,13 +31,13 @@ namespace Business.Concrete
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
-            IResult result = BusinessRules.Run(CheckIfCarNameExists(car.CarName));
+/*            IResult result = BusinessRules.Run(CheckIfCarNameExists(car.CarName));
 
             if (result != null)
             {
                 return result;
 
-            }
+            }*/
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
@@ -83,16 +83,6 @@ namespace Business.Concrete
         {
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
-        }
-
-        private IResult CheckIfCarNameExists(string carName)
-        {
-            var result = _carDal.GetAll(c => c.CarName == carName).Any();
-            if (result)
-            {
-                return new ErrorResult(Messages.CarNameAlreadyExists);
-            }
-            return new SuccessResult();
         }
     }
 }
